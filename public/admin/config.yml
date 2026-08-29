@@ -1,0 +1,60 @@
+# ---------------------------------------------------------------------------
+# Sveltia CMS configuration.
+#
+# Staff log in at  https://www.alwafaaschool.com/admin/  and write news posts
+# in a normal editor. Saving commits a Markdown file to the repository, which
+# triggers a rebuild. No database, no server-side code.
+#
+# BEFORE THIS WORKS, set backend.repo below to the school's GitHub repository.
+# ---------------------------------------------------------------------------
+
+backend:
+  name: github
+  repo: OWNER/REPO        # TODO: set to the real repository, e.g. alwafaa/website
+  branch: main
+  # Sveltia's hosted OAuth relay - avoids running an auth server.
+  base_url: https://sveltia-cms-auth.deno.dev
+
+# Uploaded photographs land here and are served from /gallery/
+media_folder: public/gallery
+public_folder: /gallery
+
+# Show a "publishing" workflow so posts can be drafted and reviewed.
+publish_mode: editorial_workflow
+
+locale: en
+
+collections:
+  # ---- Arabic news --------------------------------------------------------
+  - name: news_ar
+    label: الأخبار (عربي)
+    label_singular: خبر
+    folder: src/content/news/ar
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title,   label: العنوان,        widget: string }
+      - { name: date,    label: التاريخ,        widget: datetime, date_format: 'YYYY-MM-DD', time_format: false }
+      - { name: summary, label: ملخّص قصير,     widget: text, hint: 'سطر أو سطران يظهران في لائحة الأخبار' }
+      - { name: image,   label: صورة (اختياري), widget: image, required: false }
+      - { name: draft,   label: مسودّة,         widget: boolean, default: false, hint: 'المسودّة لا تظهر على الموقع' }
+      - { name: body,    label: النص,           widget: markdown }
+
+  # ---- English news -------------------------------------------------------
+  - name: news_en
+    label: News (English)
+    label_singular: post
+    folder: src/content/news/en
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: title,   label: Title,             widget: string }
+      - { name: date,    label: Date,              widget: datetime, date_format: 'YYYY-MM-DD', time_format: false }
+      - { name: summary, label: Short summary,     widget: text, hint: 'One or two lines shown in the news list' }
+      - { name: image,   label: Image (optional),  widget: image, required: false }
+      - { name: draft,   label: Draft,             widget: boolean, default: false, hint: 'Drafts are not shown on the site' }
+      - { name: body,    label: Body,              widget: markdown }

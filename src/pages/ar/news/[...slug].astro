@@ -1,0 +1,69 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { formatDate, isoDate } from '../../../i18n/dates';
+
+// One page per Markdown file in src/content/news/ar/
+export async function getStaticPaths() {
+  const posts = await getCollection('news', (e) => e.id.startsWith('ar/') && !e.data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace('ar/', '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout title={post.data.title} description={post.data.summary}>
+  <article class="article">
+    <div class="wrap wrap--narrow">
+      <time class="article__date" datetime={isoDate(post.data.date)}>
+        {formatDate(post.data.date, 'ar')}
+      </time>
+      <h1 class="article__title">{post.data.title}</h1>
+      <div class="rule rule--start" aria-hidden="true"><b></b><i></i></div>
+      <div class="prose">
+        <Content />
+      </div>
+      <p class="article__back">
+        <a href="/ar/news/">&larr; العودة إلى الأخبار</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article{padding-block:var(--sp-6)}
+  .article__date{
+    display:block;
+    font-size:var(--step--1);
+    color:var(--gold-ink);
+    font-weight:600;
+    margin-bottom:var(--sp-2);
+  }
+  .article__title{margin-bottom:0}
+  .rule--start{justify-content:flex-start;max-width:180px;margin-block:var(--sp-3) var(--sp-4)}
+
+  /* Markdown body */
+  .prose :global(h2){font-size:var(--step-2);margin:var(--sp-5) 0 var(--sp-2)}
+  .prose :global(h3){font-size:var(--step-1);margin:var(--sp-4) 0 var(--sp-2)}
+  .prose :global(p){margin-bottom:var(--sp-3)}
+  .prose :global(ul),.prose :global(ol){margin-bottom:var(--sp-3)}
+  .prose :global(img){border-radius:var(--radius);margin-block:var(--sp-4)}
+  .prose :global(blockquote){
+    margin:var(--sp-4) 0;
+    padding-inline-start:var(--sp-4);
+    border-inline-start:3px solid var(--gold);
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+
+  .article__back{
+    margin-top:var(--sp-6);
+    padding-top:var(--sp-4);
+    border-top:1px solid var(--line);
+  }
+  .article__back a{color:var(--burgundy);text-decoration:none;font-weight:600}
+  .article__back a:hover{text-decoration:underline}
+</style>

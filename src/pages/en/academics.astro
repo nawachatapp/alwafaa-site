@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import Card from '../../components/Card.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+// DRAFT COPY - the school must confirm which cycles it actually offers.
+const cycles = [
+  {
+    title: 'Kindergarten',
+    meta: 'Ages 3 to 5',
+    body: 'Three preparatory years in which children meet letters, numbers and languages through play, movement and art, in a patient setting that allows each child their own pace.',
+  },
+  {
+    title: 'Primary',
+    meta: 'Grades 1 to 6',
+    body: 'Reading, writing and arithmetic laid down securely, alongside the habits of steady study. All three languages are taught, with science, social studies, art and physical education.',
+  },
+  {
+    title: 'Intermediate',
+    meta: 'Grades 7 to 9',
+    body: 'Wider scientific and literary study, the growth of critical thinking and research skills, and close preparation for the Brevet examinations.',
+  },
+  {
+    title: 'Secondary',
+    meta: 'Grades 10 to 12',
+    body: 'Focused academic preparation for the Lebanese Baccalaureate, with guidance to help each student choose their track and their university path.',
+  },
+];
+
+const languages = [
+  { title: 'Arabic', body: 'The primary language of instruction and of identity - taught as literature, grammar and expression at every stage.' },
+  { title: 'English', body: 'Taught from kindergarten onward, becoming a language of instruction for scientific subjects in the later cycles.' },
+  { title: 'French', body: 'A third language taught within the Lebanese national curriculum, opening wider university options to our students.' },
+];
+---
+<BaseLayout
+  title="Academics"
+  description="Academic cycles at Alwafaa Lebanese School from kindergarten to the Baccalaureate, and the three languages taught."
+>
+  <PageHeader
+    eyebrow="Academics"
+    title="From kindergarten to the Baccalaureate"
+    lead="We follow the Lebanese national curriculum, and support each student at every stage in the way their age and ability require."
+  />
+
+  <Section title="Our cycles">
+    <CardGrid min="260px">
+      {cycles.map((c) => (
+        <Card title={c.title} meta={c.meta}><p>{c.body}</p></Card>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <Section eyebrow="Languages" title="Three languages from the start" alt>
+    <p>
+      We teach three languages because Lebanese students need them at
+      university and in working life - and because mastery of the mother
+      tongue is the condition for mastering any other.
+    </p>
+    <CardGrid min="240px">
+      {languages.map((l) => (
+        <Card title={l.title}><p>{l.body}</p></Card>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <CtaBand
+    title="Enrolling a new student"
+    text="To ask about available places and registration requirements, please get in touch with the school office."
+    actionLabel="Admissions"
+    actionHref="/en/admissions/"
+  />
+</BaseLayout>

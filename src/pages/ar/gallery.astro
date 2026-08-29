@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import Notice from '../../components/Notice.astro';
+
+// Albums are declared here for now. In Phase 04 the CMS writes this list.
+// Each item needs: src (in /public/gallery/), alt text, and a caption.
+const albums: { title: string; cover: string; count: number }[] = [];
+---
+<BaseLayout title="الصور" description="ألبومُ صورِ مدرسةِ الوفاءِ اللبناني: الصفوفُ والأنشطةُ والمناسباتُ المدرسية.">
+  <PageHeader eyebrow="الصور" title="من حياةِ المدرسة" lead="صورٌ من الصفوفِ والأنشطةِ والمناسباتِ التي تُقامُ في المدرسةِ على مدارِ العام." />
+
+  <Section narrow>
+    {albums.length === 0 ? (
+      <>
+        <p>سيتمُّ نشرُ الصورِ فور توفّرِها من إدارةِ المدرسة.</p>
+        <Notice title="بانتظارِ الصور">
+          <p>لم تتسلّم المدرسةُ بعدُ الصورَ الرسمية. ستُضافُ هذه الصفحةُ فورَ توفّرِ صورٍ للمبنى والصفوفِ والأنشطة.</p>
+        </Notice>
+      </>
+    ) : (
+      <div class="gallery">
+        {albums.map((a) => (
+          <figure class="tile">
+            <img src={a.cover} alt={a.title} loading="lazy" width="400" height="300" />
+            <figcaption>{a.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+  </Section>
+</BaseLayout>
+
+<style>
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:var(--sp-3);
+  }
+  .tile{margin:0}
+  .tile img{
+    inline-size:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+  }
+  .tile figcaption{
+    margin-top:var(--sp-1);
+    font-size:var(--step--1);
+    color:var(--ink-soft);
+  }
+</style>

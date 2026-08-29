@@ -1,0 +1,24 @@
+---
+// A titled page section with an optional eyebrow label.
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  alt?: boolean;      // shaded background
+  narrow?: boolean;   // constrain to reading width
+  id?: string;
+}
+const { eyebrow, title, alt = false, narrow = false, id } = Astro.props;
+---
+<section class:list={['section', alt && 'section--alt']} id={id}>
+  <div class:list={['wrap', narrow && 'wrap--narrow']}>
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    {title && <h2>{title}</h2>}
+    {title && <div class="rule rule--start" aria-hidden="true"><b></b><i></i></div>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  /* Left-aligned variant of the diamond rule, for section headings. */
+  .rule--start{justify-content:flex-start;max-width:180px;margin-block:var(--sp-3) var(--sp-4)}
+</style>

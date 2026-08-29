@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import Card from '../../components/Card.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import LatestNews from '../../components/LatestNews.astro';
+
+// DRAFT COPY - written as a proposal for the school to review and correct.
+const cycles = [
+  { title: 'Kindergarten', meta: 'Ages 3 to 5', body: 'A warm, secure first experience of school, where children meet letters, numbers and languages through play, and build the confidence to belong.' },
+  { title: 'Primary', meta: 'Grades 1 to 6', body: 'The foundations - reading, writing and arithmetic - laid carefully, with particular attention to all three languages: Arabic, English and French.' },
+  { title: 'Intermediate', meta: 'Grades 7 to 9', body: 'Broader scientific and literary study, the beginnings of independent thought, and preparation for the Brevet examinations.' },
+  { title: 'Secondary', meta: 'Grades 10 to 12', body: 'Focused academic preparation for the Lebanese Baccalaureate, alongside guidance to help each student choose a university path.' },
+];
+
+const values = [
+  { title: 'Belonging', body: 'We raise students who are proud of their language, their history, and their place in Lebanon.' },
+  { title: 'Learning', body: 'Knowledge is a trust. A teacher here is a partner in forming a person, not simply a source of information.' },
+  { title: 'Character', body: 'Honesty, respect and loyalty are not lessons to be recited. They are practised daily, inside the classroom and beyond it.' },
+];
+---
+<BaseLayout
+  title="Home"
+  description="The official website of Alwafaa Lebanese School, established 2000. School news, academic programmes and admissions."
+>
+  <Hero />
+
+  <Section eyebrow="Welcome" title="A school that builds character" narrow>
+    <p>
+      Since 2000, Alwafaa Lebanese School has opened its doors to generation
+      after generation of students, teaching them that knowledge means little
+      without the character to carry it, and that a school should feel like a
+      second home rather than a set of rooms and desks.
+    </p>
+    <p>
+      We offer an education that joins the rigour of the Lebanese national
+      curriculum to the openness of modern teaching, in a place where every
+      teacher knows their students by name, and every parent finds an open door.
+    </p>
+  </Section>
+
+  <Section eyebrow="Academics" title="Our academic cycles" alt>
+    <p>We accompany each student from their first days in kindergarten through to the Baccalaureate.</p>
+    <CardGrid min="250px">
+      {cycles.map((c) => (
+        <Card title={c.title} meta={c.meta}><p>{c.body}</p></Card>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <Section eyebrow="Our values" title="What we hold to">
+    <CardGrid min="260px">
+      {values.map((v) => (
+        <Card title={v.title}><p>{v.body}</p></Card>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <Section eyebrow="Latest news" title="News and announcements" narrow>
+    <LatestNews />
+  </Section>
+
+  <CtaBand
+    title="Thinking of enrolling your child?"
+    text="Registration is open. Visit the school or call us — we would be glad to answer any question you have."
+    actionLabel="Admissions"
+    actionHref="/en/admissions/"
+  />
+</BaseLayout>
+

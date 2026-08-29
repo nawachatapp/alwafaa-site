@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import Card from '../../components/Card.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+// DRAFT COPY - for the school to review and correct.
+const crest = [
+  { title: 'The mountain', body: 'A symbol of Lebanon and of steadfastness, and a reminder that learning is a climb upward.' },
+  { title: 'The book', body: 'Knowledge, open to everyone who seeks it, and the foundation of everything this school builds.' },
+  { title: 'The pen', body: 'From the verse "He who taught by the pen" - the school\'s motto since it opened.' },
+];
+---
+<BaseLayout
+  title="About the School"
+  description="The history of Alwafaa Lebanese School since 2000, its mission, its values, and the meaning of its crest."
+>
+  <PageHeader
+    eyebrow="About"
+    title="Alwafaa Lebanese School"
+    lead="Twenty-five years of teaching, and generations who have grown up within these walls."
+  />
+
+  <Section title="How we began" narrow>
+    <p>
+      Alwafaa Lebanese School was founded in 2000 on a simple, clear idea: that
+      the children of this area should have a good school close to home - one
+      that would teach them well and treat them as its own, so that no parent
+      would have to look far afield.
+    </p>
+    <p>
+      We opened with a modest number of classes and students, and the school
+      grew year by year, on the strength of parents' trust more than anything
+      else. Today we welcome students from kindergarten through to the
+      Baccalaureate, and that first idea has not changed.
+    </p>
+  </Section>
+
+  <Section title="Our mission" alt narrow>
+    <p>
+      We work to send out students who are secure in their learning, proud of
+      their language and identity, able to think independently and to work
+      alongside others. We want them to leave having learned how to learn -
+      not merely how to memorise.
+    </p>
+    <p>
+      None of this happens without a genuine partnership with parents. The
+      administration's door stays open, and teachers are within reach of
+      families rather than behind a barrier.
+    </p>
+  </Section>
+
+  <Section eyebrow="The crest" title="What our crest means">
+    <p>The school's crest carries three elements, each with its own meaning.</p>
+    <CardGrid min="240px">
+      {crest.map((c) => (
+        <Card title={c.title}><p>{c.body}</p></Card>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <CtaBand
+    title="Come and visit"
+    text="The best way to know us is to see the school for yourself. You are welcome on any working day."
+    actionLabel="Contact us"
+    actionHref="/en/contact/"
+  />
+</BaseLayout>

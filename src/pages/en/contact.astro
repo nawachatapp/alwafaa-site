@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import { phones, email, address } from '../../i18n/contact';
+---
+<BaseLayout
+  title="Contact"
+  description="Telephone numbers, email address and office hours for Alwafaa Lebanese School."
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="How to reach us"
+    lead="Whether you are asking about registration or following up on a current student, please get in touch in whichever way suits you."
+  />
+
+  <Section narrow>
+    <dl class="contact-list">
+      <div class="contact-item">
+        <dt>Telephone</dt>
+        <dd>
+          {phones.map((p) => (
+            <a class="contact-link" href={`tel:${p.tel}`} dir="ltr">{p.intl}</a>
+          ))}
+        </dd>
+      </div>
+
+      <div class="contact-item">
+        <dt>Email</dt>
+        <dd><a class="contact-link" href={`mailto:${email}`}>{email}</a></dd>
+      </div>
+
+      <div class="contact-item">
+        <dt>Address</dt>
+        <dd>{address.en}</dd>
+      </div>
+
+      <div class="contact-item">
+        <dt>Office hours</dt>
+        <dd>
+          <p>Monday to Friday: 7:30 am — 2:00 pm</p>
+          <p>Saturday: 7:30 am — 12:00 noon</p>
+        </dd>
+      </div>
+    </dl>
+
+    <p class="note">
+      Note: office hours and the full street address are awaiting confirmation
+      from the school administration.
+    </p>
+  </Section>
+</BaseLayout>
+
+<style>
+  .contact-list{margin:0;display:grid;gap:var(--sp-4)}
+  .contact-item{
+    display:grid;
+    gap:var(--sp-1);
+    padding-bottom:var(--sp-4);
+    border-bottom:1px solid var(--line);
+  }
+  .contact-item:last-child{border-bottom:none;padding-bottom:0}
+  .contact-item dt{
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold-ink);
+    font-weight:700;
+  }
+  .contact-item dd{margin:0;display:grid;gap:var(--sp-1)}
+  .contact-item dd p{margin:0}
+  .contact-link{
+    font-size:var(--step-1);
+    color:var(--burgundy);
+    text-decoration:none;
+    width:fit-content;
+  }
+  .contact-link:hover{text-decoration:underline}
+  .note{
+    margin-top:var(--sp-5);
+    font-size:var(--step--1);
+    color:var(--ink-soft);
+    padding:var(--sp-3);
+    background:var(--surface-alt);
+    border-inline-start:3px solid var(--gold);
+    border-radius:var(--radius);
+  }
+</style>

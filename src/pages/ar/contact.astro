@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import { phones, email, address } from '../../i18n/contact';
+---
+<BaseLayout
+  title="اتصل بنا"
+  description="أرقامُ هواتفِ مدرسةِ الوفاءِ اللبناني وبريدُها الإلكترونيُّ وأوقاتُ الدوامِ الرسمي."
+>
+  <PageHeader
+    eyebrow="اتصل بنا"
+    title="نحنُ في خدمتِكم"
+    lead="للاستفسارِ عن التسجيلِ أو لمتابعةِ شؤونِ طالبٍ لدينا، تواصلوا معنا بالطريقةِ التي تناسبُكم."
+  />
+
+  <Section narrow>
+    <dl class="contact-list">
+      <div class="contact-item">
+        <dt>الهاتف</dt>
+        <dd>
+          {phones.map((p) => (
+            <a class="contact-link" href={`tel:${p.tel}`} dir="ltr">{p.label}</a>
+          ))}
+        </dd>
+      </div>
+
+      <div class="contact-item">
+        <dt>البريد الإلكتروني</dt>
+        <dd><a class="contact-link" href={`mailto:${email}`} dir="ltr">{email}</a></dd>
+      </div>
+
+      <div class="contact-item">
+        <dt>العنوان</dt>
+        <dd>{address.ar}</dd>
+      </div>
+
+      <div class="contact-item">
+        <dt>أوقات الدوام</dt>
+        <dd>
+          <p>الاثنين إلى الجمعة: ٧:٣٠ صباحاً — ٢:٠٠ بعد الظهر</p>
+          <p>السبت: ٧:٣٠ صباحاً — ١٢:٠٠ ظهراً</p>
+        </dd>
+      </div>
+    </dl>
+
+    <p class="note">
+      ملاحظة: أوقاتُ الدوامِ والعنوانُ التفصيليُّ بانتظارِ تأكيدِ الإدارة.
+    </p>
+  </Section>
+</BaseLayout>
+
+<style>
+  .contact-list{margin:0;display:grid;gap:var(--sp-4)}
+  .contact-item{
+    display:grid;
+    gap:var(--sp-1);
+    padding-bottom:var(--sp-4);
+    border-bottom:1px solid var(--line);
+  }
+  .contact-item:last-child{border-bottom:none;padding-bottom:0}
+  .contact-item dt{
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--gold-ink);
+    font-weight:700;
+  }
+  .contact-item dd{margin:0;display:grid;gap:var(--sp-1)}
+  .contact-item dd p{margin:0}
+  .contact-link{
+    font-size:var(--step-1);
+    color:var(--burgundy);
+    text-decoration:none;
+    width:fit-content;
+  }
+  .contact-link:hover{text-decoration:underline}
+  .note{
+    margin-top:var(--sp-5);
+    font-size:var(--step--1);
+    color:var(--ink-soft);
+    padding:var(--sp-3);
+    background:var(--surface-alt);
+    border-inline-start:3px solid var(--gold);
+    border-radius:var(--radius);
+  }
+</style>

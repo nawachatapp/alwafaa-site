@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import Card from '../../components/Card.astro';
+import Steps from '../../components/Steps.astro';
+import Notice from '../../components/Notice.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+// DRAFT COPY - NOTHING ON THIS PAGE IS CONFIRMED.
+// Requirements, documents and dates are invented placeholders and MUST be
+// replaced with the school's real admissions policy before launch.
+const steps = [
+  {
+    title: 'Contact the school office',
+    body: 'Call or visit us to ask whether a place is available in the grade you need.',
+  },
+  {
+    title: 'Visit and meet the administration',
+    body: 'We will show you the school, explain the curriculum and the daily routine, and answer your questions.',
+  },
+  {
+    title: 'Submit the documents',
+    body: 'Bring the required paperwork, complete, to the registration office.',
+  },
+  {
+    title: 'Interview or placement test',
+    body: 'For some grades a short placement test is held; younger children have a brief interview instead.',
+  },
+  {
+    title: 'Confirm the registration',
+    body: 'Once a place is confirmed, registration is completed and families receive the stationery list and uniform details.',
+  },
+];
+
+const documents = [
+  { title: 'Civil registry extract', body: 'Recently issued, for the student being enrolled.' },
+  { title: 'Photographs', body: 'Four recent photographs on a white background.' },
+  { title: 'School record', body: 'From the previous school for transferring students, with the report card.' },
+  { title: 'Vaccination card', body: 'A copy of the immunisation record for kindergarten and primary pupils.' },
+  { title: "Guardian's ID", body: 'A copy of the identity card or passport.' },
+];
+---
+<BaseLayout
+  title="Admissions"
+  description="Registration requirements at Alwafaa Lebanese School, the documents needed, and how the process works."
+>
+  <PageHeader
+    eyebrow="Admissions"
+    title="Enrol your child with us"
+    lead="Registration is open for every stage, from kindergarten through to secondary, subject to the places available in each grade."
+  />
+
+  <Section title="How registration works" narrow>
+    <p>The process is straightforward and does not take long.</p>
+    <Steps steps={steps} />
+  </Section>
+
+  <Section eyebrow="Documents" title="What to bring" alt>
+    <p>Please bring the following documents when you register.</p>
+    <CardGrid min="240px">
+      {documents.map((d) => (
+        <Card title={d.title}><p>{d.body}</p></Card>
+      ))}
+    </CardGrid>
+  </Section>
+
+  <Section title="When to register" narrow>
+    <p>
+      Registration for the new academic year usually opens in June and
+      continues until the available places are filled. We encourage families
+      to get in touch early, as kindergarten classes fill quickly each year.
+    </p>
+    <p>
+      We also accept transferring students during the school year, where a
+      place exists in the relevant grade.
+    </p>
+
+    <Notice title="Awaiting confirmation from the school">
+      <p>
+        The documents, dates and steps described on this page are a draft,
+        written as a working model. They have not yet been approved by the
+        school administration.
+      </p>
+      <p>
+        Please call the school to confirm the actual requirements, fees and
+        official dates before relying on anything stated here.
+      </p>
+    </Notice>
+  </Section>
+
+  <CtaBand
+    title="Have a question about admissions?"
+    text="Call us directly - the registration office will be glad to help and to answer any question you have."
+    actionLabel="Contact details"
+    actionHref="/en/contact/"
+  />
+</BaseLayout>

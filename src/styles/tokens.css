@@ -1,0 +1,74 @@
+/* ===========================================================================
+   Design tokens - Lebanese Alwafaa School
+   Every colour, typeface and spacing step the site uses is declared here.
+   Change a value in this file and it changes everywhere. Components must
+   never hardcode a hex value.
+
+   The palette is taken from the school crest: burgundy and gold.
+   =========================================================================== */
+
+:root{
+  /* ---- Brand ---------------------------------------------------------- */
+  --burgundy:#8C1230;
+  --burgundy-deep:#6B0D24;
+  --burgundy-dark:#4A0918;
+  --gold:#C8A24A;
+  --gold-light:#E6CE8E;
+  --gold-pale:#F0DFB2;
+  /* Darker gold, for gold text on a light ground where --gold fails contrast */
+  --gold-ink:#8A6A1F;
+
+  /* ---- Surfaces -------------------------------------------------------
+     Warm neutrals, biased toward the burgundy rather than pure grey.      */
+  --cream:#F7F1E3;
+  --cream-dim:#E6D9BE;
+  --ground:#FAF6EC;
+  --surface:#FFFDF7;
+  --surface-alt:#F3ECDC;
+  --line:#DFD3BC;
+
+  /* ---- Text ----------------------------------------------------------- */
+  --ink:#241A17;
+  --ink-soft:#6E625C;
+  --ink-invert:#F7F1E3;
+
+  /* ---- Typefaces ------------------------------------------------------
+     Amiri  - Arabic display, matches the crest lettering
+     Cormorant Garamond - Latin display
+     Cairo  - body and UI, carries both scripts comfortably               */
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-arabic:'Amiri','Traditional Arabic',serif;
+  --font-body:'Cairo',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  /* ---- Type scale ----------------------------------------------------- */
+  --step--1:clamp(12px,.35vw + 11px,13px);
+  --step-0:clamp(15px,.3vw + 14px,16px);
+  --step-1:clamp(18px,.6vw + 16px,21px);
+  --step-2:clamp(22px,1.2vw + 18px,28px);
+  --step-3:clamp(27px,2.2vw + 21px,38px);
+  --step-4:clamp(32px,3.6vw + 23px,54px);
+
+  /* ---- Spacing -------------------------------------------------------- */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:14px;
+  --sp-4:22px;
+  --sp-5:34px;
+  --sp-6:52px;
+  --sp-7:78px;
+
+  /* ---- Layout --------------------------------------------------------- */
+  --measure:66ch;
+  --wrap:1120px;
+  --wrap-narrow:760px;
+  --header-h:96px;
+  --radius:3px;
+
+  /* ---- Motion --------------------------------------------------------- */
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --dur:.25s;
+}
+
+@media (max-width:640px){
+  :root{--header-h:74px}
+}

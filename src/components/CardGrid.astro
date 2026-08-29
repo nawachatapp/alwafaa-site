@@ -1,0 +1,15 @@
+---
+// Responsive card grid. Children supply the .card elements.
+interface Props { min?: string }
+const { min = '240px' } = Astro.props;
+---
+<div class="grid" style={`--min:${min}`}><slot /></div>
+
+<style>
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(var(--min),1fr));
+    gap:var(--sp-4);
+    margin-top:var(--sp-4);
+  }
+</style>

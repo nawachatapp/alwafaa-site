@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import { formatDate, isoDate } from '../i18n/dates';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const posts = (await getCollection('news', (e) => e.id.startsWith(`${lang}/`) && !e.data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+{posts.length > 0 && (
+  <div class="latest">
+    <ul class="latest__list">
+      {posts.map((post) => (
+        <li class="latest__item">
+          <time class="latest__date" datetime={isoDate(post.data.date)}>
+            {formatDate(post.data.date, lang)}
+          </time>
+          <h3 class="latest__title">
+            <a href={`/${lang}/news/${post.id.replace(`${lang}/`, '')}/`}>{post.data.title}</a>
+          </h3>
+          <p class="latest__summary">{post.data.summary}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="latest__more">
+      <a href={`/${lang}/news/`}>{t('cta.allNews')} &rarr;</a>
+    </p>
+  </div>
+)}
+
+<style>
+  .latest__list{
+    list-style:none;
+    margin:var(--sp-4) 0 0;
+    padding:0;
+    display:grid;
+    gap:var(--sp-4);
+  }
+  .latest__item{
+    margin:0;
+    max-width:none;
+    padding-bottom:var(--sp-4);
+    border-bottom:1px solid var(--line);
+  }
+  .latest__item:last-child{border-bottom:none;padding-bottom:0}
+  .latest__date{
+    display:block;
+    font-size:var(--step--1);
+    color:var(--gold-ink);
+    font-weight:600;
+    margin-bottom:var(--sp-1);
+  }
+  .latest__title{font-size:var(--step-1);margin:0 0 var(--sp-1)}
+  .latest__title a{color:var(--burgundy);text-decoration:none}
+  .latest__title a:hover{text-decoration:underline}
+  .latest__summary{color:var(--ink-soft);margin:0;font-size:var(--step-0)}
+  .latest__more{margin-top:var(--sp-4)}
+  .latest__more a{color:var(--burgundy);font-weight:600;text-decoration:none}
+  .latest__more a:hover{text-decoration:underline}
+</style>

@@ -1,0 +1,66 @@
+---
+// An ordered process. Numbering is meaningful here - registration genuinely
+// runs in sequence, so the numbers carry information rather than decoration.
+interface Step { title: string; body: string }
+interface Props { steps: readonly Step[] }
+const { steps } = Astro.props;
+---
+<ol class="steps">
+  {steps.map((s) => (
+    <li class="step">
+      <h3 class="step__title">{s.title}</h3>
+      <p class="step__body">{s.body}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps{
+    list-style:none;
+    margin:var(--sp-4) 0 0;
+    padding:0;
+    counter-reset:step;
+    display:grid;
+    gap:var(--sp-4);
+  }
+  .step{
+    counter-increment:step;
+    position:relative;
+    padding-inline-start:56px;
+    max-width:var(--measure);
+    margin:0;
+  }
+  .step::before{
+    content:counter(step);
+    position:absolute;
+    inset-inline-start:0;
+    top:0;
+    inline-size:38px;
+    block-size:38px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:var(--burgundy);
+    color:var(--cream);
+    font-family:var(--font-display);
+    font-size:17px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+  }
+  /* Connecting line between the markers. */
+  .step:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    inset-inline-start:18px;
+    top:44px;
+    bottom:calc(var(--sp-4) * -1 + 2px);
+    inline-size:1px;
+    background:var(--line);
+  }
+  .step__title{
+    font-size:var(--step-1);
+    margin:6px 0 var(--sp-1);
+    color:var(--burgundy);
+  }
+  .step__body{color:var(--ink-soft);margin:0}
+</style>

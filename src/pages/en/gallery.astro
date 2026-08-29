@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import Notice from '../../components/Notice.astro';
+
+// Albums are declared here for now. In Phase 04 the CMS writes this list.
+// Each item needs: src (in /public/gallery/), alt text, and a caption.
+const albums: { title: string; cover: string; count: number }[] = [];
+---
+<BaseLayout title="Gallery" description="Photograph gallery of Alwafaa Lebanese School: classrooms, activities and school occasions.">
+  <PageHeader eyebrow="Gallery" title="Life at the school" lead="Photographs from the classrooms, the activities and the occasions held at the school throughout the year." />
+
+  <Section narrow>
+    {albums.length === 0 ? (
+      <>
+        <p>Photographs will be published here as soon as the school provides them.</p>
+        <Notice title="Awaiting photographs">
+          <p>The school has not yet supplied official photographs. This page will be filled once images of the building, classrooms and activities are available.</p>
+        </Notice>
+      </>
+    ) : (
+      <div class="gallery">
+        {albums.map((a) => (
+          <figure class="tile">
+            <img src={a.cover} alt={a.title} loading="lazy" width="400" height="300" />
+            <figcaption>{a.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+  </Section>
+</BaseLayout>
+
+<style>
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:var(--sp-3);
+  }
+  .tile{margin:0}
+  .tile img{
+    inline-size:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+  }
+  .tile figcaption{
+    margin-top:var(--sp-1);
+    font-size:var(--step--1);
+    color:var(--ink-soft);
+  }
+</style>
