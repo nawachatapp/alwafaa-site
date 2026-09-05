@@ -8,7 +8,7 @@ export const phones = [
   { tel: '+9613897216', label: '03 897 216', intl: '+961 3 897 216' },
 ] as const;
 
-export const email = 'info@alwafaaschool.com'; // TO CONFIRM with the school
+export const email = 'alwafaa.lebanese.school@hotmail.com';
 
 // The pupils' web portal (timetable, homework). One login per pupil, given by
 // the school office. Served by nawa for this school at its own address.

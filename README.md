@@ -150,7 +150,6 @@ Arabic right-to-left text.
 ### Still needed before launch
 
 - **Street address** — footer and contact page currently say only "Lebanon"
-- **Email** — `info@alwafaaschool.com`, to be confirmed
 - **Office hours** — a plausible guess, flagged on the contact page
 - **Photographs** — the gallery is empty and shows a placeholder notice
 - **Admissions policy** — the documents, steps and dates on the admissions
