@@ -65,6 +65,14 @@ const fullTitle = `${title} | ${t('site.name')}`;
   <Footer />
 
   <script>
+    // The web portal has no URL yet. Its entry points - the hero card and the
+    // footer button - look, hover and focus like real links, which is the
+    // point, but must not navigate anywhere. TO GO LIVE: set the real href on
+    // both and delete this block with the data-portal-pending attributes.
+    document.querySelectorAll('[data-portal-pending]').forEach((el) => {
+      el.addEventListener('click', (e) => e.preventDefault());
+    });
+
     // First-visit language detection.
     // Only ever redirects from the site root, and only once: after the reader
     // has chosen a language (or been sent somewhere), the stored preference

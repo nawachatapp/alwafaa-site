@@ -11,13 +11,6 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap foot">
 
-    <div class="foot__brand">
-      <img src="/logo.png" alt="" width="72" height="72" class="foot__mark" />
-      <p class="foot__name">{t('site.name')}</p>
-      <p class="foot__motto">{t('site.tagline')}</p>
-      <p class="foot__est">{t('site.est')}</p>
-    </div>
-
     <nav class="foot__col" aria-label={t('footer.quickLinks')}>
       <h2 class="foot__h">{t('footer.quickLinks')}</h2>
       <ul>
@@ -41,6 +34,20 @@ const year = new Date().getFullYear();
       </ul>
     </div>
 
+    <div class="foot__col">
+      <h2 class="foot__h">{t('footer.services')}</h2>
+      {/* Web portal. The URL does not exist yet, so href="#" and the click is
+          swallowed by the guard in BaseLayout. TO GO LIVE: put the real URL in
+          href and drop data-portal-pending. */}
+      <a class="foot__portal" href="#" data-portal-pending>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3 2.5 8 12 13l9.5-5z" />
+          <path d="M6 10.5v4.7c0 .6.3 1.1.8 1.4 1.3.8 3.1 1.4 5.2 1.4s3.9-.6 5.2-1.4c.5-.3.8-.8.8-1.4v-4.7" />
+        </svg>
+        {t('cta.portal')}
+      </a>
+    </div>
+
   </div>
 
   <div class="wrap foot__base">
@@ -51,7 +58,7 @@ const year = new Date().getFullYear();
 <style>
   .site-footer{
     margin-top:auto;
-    background:linear-gradient(180deg,var(--burgundy-deep),var(--burgundy-dark));
+    background:linear-gradient(180deg,var(--burgundy),var(--burgundy-deep));
     color:rgba(247,241,227,.78);
     padding-top:var(--sp-6);
     border-top:2px solid var(--gold);
@@ -59,70 +66,68 @@ const year = new Date().getFullYear();
 
   .foot{
     display:grid;
-    grid-template-columns:1.4fr 1fr 1fr;
+    grid-template-columns:repeat(3,minmax(0,1fr));
     gap:var(--sp-5);
     padding-bottom:var(--sp-5);
   }
   @media (max-width:760px){
     .foot{grid-template-columns:1fr;gap:var(--sp-4);text-align:center}
-    .foot__brand{justify-items:center}
   }
-
-  .foot__brand{display:grid;gap:var(--sp-1);align-content:start}
-  .foot__mark{
-    inline-size:66px;block-size:66px;
-    border-radius:50%;
-    object-fit:cover;
-    background:var(--cream);
-    border:1.5px solid rgba(200,162,74,.5);
-    margin-bottom:var(--sp-2);
-  }
-  @media (max-width:760px){.foot__mark{margin-inline:auto}}
-
-  .foot__name{
-    font-family:var(--font-arabic);
-    font-size:var(--step-1);
-    font-weight:700;
-    color:var(--gold-pale);
-    margin:0;
-    line-height:1.4;
-  }
-  :root[lang="en"] .foot__name{font-family:var(--font-display)}
-
-  .foot__motto{
-    font-family:var(--font-arabic);
-    color:var(--gold-light);
-    margin:0;
-    font-size:var(--step-0);
-  }
-  .foot__est{
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:rgba(247,241,227,.5);
-    margin:var(--sp-1) 0 0;
-  }
-
   .foot__h{
     font-family:var(--font-body);
     font-size:11px;
     font-weight:700;
     letter-spacing:.18em;
     text-transform:uppercase;
-    color:var(--gold);
+    /* gold-light rather than gold: 11px uppercase needs the extra step to
+       clear 4.5:1 on the brighter footer ground. */
+    color:var(--gold-light);
     margin:0 0 var(--sp-3);
   }
   :root[lang="ar"] .foot__h{letter-spacing:.04em;font-size:13px}
 
   .foot__col ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-2)}
   .foot__col li{margin:0;max-width:none}
-  .foot__col a{
+  .foot__col ul a{
     color:rgba(247,241,227,.78);
     text-decoration:none;
     font-size:14px;
     transition:color var(--dur) var(--ease);
   }
-  .foot__col a:hover{color:var(--gold-pale);text-decoration:underline}
+  .foot__col ul a:hover{color:var(--gold-pale);text-decoration:underline}
+
+  /* Web portal button. Same object as .portal in the header: glass pill,
+     gold hairline, no underline on hover. */
+  .foot__portal{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 16px;
+    /* Pill, glass, gold hairline - the same object in both bars. */
+    border-radius:999px;
+    /* No gold outline: the glass alone carries it. */
+    border:1px solid transparent;
+    background:rgba(247,241,227,.12);
+    -webkit-backdrop-filter:blur(10px) saturate(140%);
+    backdrop-filter:blur(10px) saturate(140%);
+    color:var(--gold-pale);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+    transition:background var(--dur) var(--ease),
+               border-color var(--dur) var(--ease),
+               color var(--dur) var(--ease);
+  }
+  .foot__portal svg{inline-size:15px;block-size:15px;flex:none;opacity:.85}
+  .foot__portal:hover,
+  .foot__portal:focus-visible{
+    background:rgba(247,241,227,.2);
+    color:var(--gold-pale);
+    /* No underline: this is a button, not a body link. */
+    text-decoration:none;
+  }
+  @media (max-width:760px){.foot__portal{margin-inline:auto}}
 
   .foot__base{
     border-top:1px solid rgba(200,162,74,.18);

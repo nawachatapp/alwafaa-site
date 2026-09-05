@@ -9,9 +9,13 @@
 
 :root{
   /* ---- Brand ---------------------------------------------------------- */
-  --burgundy:#8C1230;
-  --burgundy-deep:#6B0D24;
-  --burgundy-dark:#4A0918;
+  /* The ramp sits deliberately high on the lightness scale: the crest's red
+     is a live, saturated burgundy, not a near-black maroon. The darkest step
+     is L22% rather than L16%, so large fields of it read as colour rather
+     than as shadow. Every step still clears 4.5:1 against --cream. */
+  --burgundy:#A0183A;
+  --burgundy-deep:#82122E;
+  --burgundy-dark:#640C21;
   --gold:#C8A24A;
   --gold-light:#E6CE8E;
   --gold-pale:#F0DFB2;
@@ -61,7 +65,11 @@
   --measure:66ch;
   --wrap:1120px;
   --wrap-narrow:760px;
-  --header-h:96px;
+  --header-h:116px;
+  /* Height of the hero's action cards. The hero keeps the top half inside
+     itself and hangs the bottom half over the next section, so the hero
+     padding and that section's top padding are both derived from this. */
+  --hero-card-h:212px;
   --radius:3px;
 
   /* ---- Motion --------------------------------------------------------- */
@@ -70,5 +78,7 @@
 }
 
 @media (max-width:640px){
-  :root{--header-h:74px}
+  :root{--header-h:88px}
+  /* Stacked, a single card is shorter than the desktop pair's row. */
+  :root{--hero-card-h:206px}
 }

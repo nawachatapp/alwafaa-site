@@ -1,7 +1,7 @@
 ---
 title: Registration open for the 2026–2027 academic year
 date: 2026-06-01
-summary: The school office is now accepting registration applications for every stage, from kindergarten through to secondary.
+summary: The school office is now accepting registration applications for every stage, from kindergarten through to Grade 9.
 draft: false
 ---
 

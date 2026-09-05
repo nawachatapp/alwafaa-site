@@ -15,8 +15,37 @@ const t = useTranslations(lang);
     <div class="rule" aria-hidden="true"><i></i><b></b><i></i></div>
     <p class="hero__motto">{t('site.tagline')}</p>
     <div class="hero__cta">
-      <a class="btn" href={localisedPath('admissions', lang)}>{t('cta.apply')}</a>
-      <a class="btn btn--ghost" href={localisedPath('about', lang)}>{t('nav.about')}</a>
+      <a class="acard acard--apply" href={localisedPath('admissions', lang)}>
+        <span class="acard__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H12v16H6.5A2.5 2.5 0 0 1 4 17.5z" />
+            <path d="M20 6.5A2.5 2.5 0 0 0 17.5 4H12v16h5.5a2.5 2.5 0 0 0 2.5-2.5z" />
+          </svg>
+        </span>
+        <span class="acard__title">{t('cta.apply')}</span>
+        <span class="acard__desc">{t('cta.applyDesc')}</span>
+        <span class="acard__go">
+          <span class="acard__arrow" aria-hidden="true">&#8594;</span>
+        </span>
+      </a>
+
+      <!-- Web portal. The URL does not exist yet, so href="#" and the click
+           is swallowed by the guard in BaseLayout. TO GO LIVE: put the real
+           URL in href and drop data-portal-pending. -->
+      <a class="acard acard--apply" href="#" data-portal-pending>
+        <span class="acard__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3 2.5 8 12 13l9.5-5z" />
+            <path d="M6 10.5v4.7c0 .6.3 1.1.8 1.4 1.3.8 3.1 1.4 5.2 1.4s3.9-.6 5.2-1.4c.5-.3.8-.8.8-1.4v-4.7" />
+            <path d="M21.5 8v5" />
+          </svg>
+        </span>
+        <span class="acard__title">{t('cta.portal')}</span>
+        <span class="acard__desc">{t('cta.portalDesc')}</span>
+        <span class="acard__go">
+          <span class="acard__arrow" aria-hidden="true">&#8594;</span>
+        </span>
+      </a>
     </div>
   </div>
 </section>
@@ -24,20 +53,29 @@ const t = useTranslations(lang);
 <style>
   .hero{
     background:
-      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(200,162,74,.20), transparent 60%),
-      radial-gradient(ellipse 90% 60% at 50% 110%, rgba(200,162,74,.12), transparent 65%),
-      linear-gradient(165deg,var(--burgundy) 0%,var(--burgundy-deep) 45%,var(--burgundy-dark) 100%);
+      /* A warm light source above the crest, and a softer one below, so the
+         field reads as lit rather than flat. */
+      radial-gradient(ellipse 120% 85% at 50% -8%, rgba(230,206,142,.28), transparent 62%),
+      radial-gradient(ellipse 95% 65% at 50% 108%, rgba(200,162,74,.16), transparent 68%),
+      /* Bright at the top, easing only to the mid tone - the old ramp fell
+         all the way to --burgundy-dark and read as a shadow. */
+      linear-gradient(165deg,var(--burgundy) 0%,var(--burgundy) 38%,var(--burgundy-deep) 100%);
     color:var(--cream);
     text-align:center;
-    padding-block:clamp(48px,9vw,96px);
+    /* Thinner than before: the cards below now carry the lower half, so the
+       hero only needs room for the crest, name and motto. The bottom pad is
+       deliberately small - the cards overhang it. */
+    padding-block:clamp(22px,3.2vw,38px) calc(var(--hero-card-h) / 2);
     position:relative;
-    overflow:hidden;
+    /* No overflow:hidden here - it would clip the overhanging cards. The
+       grain layer clips itself instead. */
   }
   /* Paper grain, carried over from the coming-soon page. */
   .hero::before{
     content:"";
     position:absolute;
     inset:0;
+    overflow:hidden;
     pointer-events:none;
     opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -46,10 +84,10 @@ const t = useTranslations(lang);
   .hero__inner{position:relative;display:grid;justify-items:center}
 
   .hero__crest{
-    inline-size:clamp(124px,20vw,178px);
-    block-size:clamp(124px,20vw,178px);
+    inline-size:clamp(96px,13vw,132px);
+    block-size:clamp(96px,13vw,132px);
     position:relative;
-    margin-bottom:var(--sp-4);
+    margin-bottom:var(--sp-3);
   }
   .hero__crest::before{
     content:"";
@@ -74,7 +112,9 @@ const t = useTranslations(lang);
     font-size:11px;
     letter-spacing:.3em;
     text-transform:uppercase;
-    color:var(--gold);
+    /* --gold-light, not --gold: at 11px on the brighter burgundy the mid
+       gold only reaches ~3:1, which is short for text this small. */
+    color:var(--gold-light);
     margin:0 0 var(--sp-2);
     font-weight:600;
   }
@@ -101,7 +141,7 @@ const t = useTranslations(lang);
     max-width:14ch;
   }
 
-  .hero .rule{max-width:320px;width:100%;margin-block:var(--sp-4)}
+  .hero .rule{max-width:320px;width:100%;margin-block:var(--sp-3)}
   .hero .rule i{background:linear-gradient(90deg,transparent,rgba(200,162,74,.75),transparent)}
 
   .hero__motto{
@@ -112,11 +152,148 @@ const t = useTranslations(lang);
     line-height:1.7;
   }
 
+  /* The cards straddle the hero's bottom edge: the top half sits on the
+     burgundy, the bottom half hangs over the section beneath. --overhang is
+     how far they drop; the hero reserves the other half as bottom padding
+     and the following section is pushed down by the same amount (see
+     global.css, .hero + .section). */
   .hero__cta{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:var(--sp-3);
-    margin-top:var(--sp-5);
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:var(--sp-4);
+    /* The cards are pushed down by half their height (below), so the visual
+       gap under the motto is that translate plus this margin. Keep the
+       margin small: --sp-5 of real breathing room, minus what the translate
+       already contributes, would leave a hole under the motto. */
+    margin-top:calc(var(--sp-4) - var(--hero-card-h) / 2 + var(--sp-4));
+    /* Half the card hangs below the hero. The hero's bottom padding holds
+       the other half (see .hero), and .hero + .section clears the overhang. */
+    margin-bottom:calc(var(--hero-card-h) / -2);
+    transform:translateY(calc(var(--hero-card-h) / 2));
+    inline-size:100%;
+    max-width:720px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ---- Action cards ----------------------------------------------------
+     Light cards on the burgundy field. Burgundy-on-burgundy made them melt
+     into the hero; a cream surface reads as a physical object laid on it,
+     and carries the eye straight to the two things we want clicked. */
+  .acard{
+    --edge:rgba(200,162,74,.55);
+    display:grid;
+    grid-template-rows:auto auto 1fr auto;
+    justify-items:center;
+    gap:6px;
+    padding:var(--sp-4) var(--sp-4) var(--sp-3);
+    text-align:center;
+    text-decoration:none;
+    border:1px solid var(--edge);
+    border-radius:calc(var(--radius) * 3);
+    background:linear-gradient(168deg,var(--surface),var(--surface-alt));
+    box-shadow:
+      0 20px 46px -22px rgba(74,9,24,.7),
+      inset 0 1px 0 rgba(255,255,255,.7);
+    transition:
+      transform var(--dur) var(--ease),
+      border-color var(--dur) var(--ease),
+      box-shadow var(--dur) var(--ease);
+  }
+
+  .acard__icon{
+    display:grid;
+    place-items:center;
+    inline-size:44px;
+    block-size:44px;
+    border-radius:50%;
+    color:var(--burgundy);
+    background:rgba(160,24,58,.09);
+    border:1px solid rgba(160,24,58,.16);
+    transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+  }
+  .acard__icon svg{inline-size:22px;block-size:22px}
+
+  .acard__title{
+    font-family:var(--font-arabic);
+    font-size:var(--step-1);
+    font-weight:700;
+    color:var(--burgundy);
+    line-height:1.3;
+  }
+  :root[lang="en"] .acard__title{
+    font-family:var(--font-display);
+    font-variation-settings:'opsz' 40,'SOFT' 20;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+
+  .acard__desc{
+    font-size:var(--step--1);
+    line-height:1.55;
+    color:var(--ink-soft);
+    max-width:24ch;
+  }
+
+  .acard__go{margin-top:var(--sp-2);min-block-size:22px;display:grid;place-items:center}
+
+  /* Apply - the primary action, so it gets the solid gold arrow. */
+  .acard--apply .acard__arrow{
+    display:grid;
+    place-items:center;
+    inline-size:36px;
+    block-size:36px;
+    border-radius:50%;
+    font-size:17px;
+    line-height:1;
+    color:var(--cream);
+    background:var(--burgundy);
+    box-shadow:0 4px 12px -4px rgba(160,24,58,.6);
+    transition:transform var(--dur) var(--ease),background var(--dur) var(--ease);
+  }
+  /* The arrow points along the reading direction, both scripts. */
+  :root[dir="rtl"] .acard--apply .acard__arrow{transform:scaleX(-1)}
+
+  .acard--apply:hover,
+  .acard--apply:focus-visible{
+    transform:translateY(-5px);
+    border-color:var(--gold);
+    box-shadow:
+      0 30px 58px -22px rgba(74,9,24,.8),
+      inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  .acard--apply:hover .acard__icon,
+  .acard--apply:focus-visible .acard__icon{
+    background:rgba(160,24,58,.16);
+    border-color:rgba(160,24,58,.3);
+  }
+  .acard--apply:hover .acard__arrow{background:var(--burgundy-deep)}
+  :root[dir="ltr"] .acard--apply:hover .acard__arrow{transform:translateX(3px)}
+  :root[dir="rtl"] .acard--apply:hover .acard__arrow{transform:scaleX(-1) translateX(3px)}
+
+  /* Student portal - present but not yet live. Dimmed, no pointer. */
+  .acard__badge{
+    display:inline-block;
+    padding:5px 13px;
+    border-radius:999px;
+    border:1px dashed rgba(130,18,46,.42);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    /* Burgundy, not gold-ink: at 11px on the card's dimmer ground the gold
+       only reaches ~3.6:1, short of 4.5. */
+    color:var(--burgundy-deep);
+    opacity:.85;
+  }
+  :root[lang="ar"] .acard__badge{letter-spacing:.02em;font-size:12px}
+
+  @media (max-width:640px){
+    .hero__cta{grid-template-columns:1fr;gap:var(--sp-3);max-width:420px}
+    .acard{padding:var(--sp-4) var(--sp-4) var(--sp-3)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .acard,.acard__arrow{transition:none}
+    .acard--apply:hover,.acard--apply:focus-visible{transform:none}
   }
 </style>

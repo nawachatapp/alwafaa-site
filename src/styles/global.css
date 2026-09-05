@@ -83,6 +83,11 @@ li::marker{color:var(--gold-ink)}
 .section--tight{padding-block:var(--sp-6)}
 .section--alt{background:var(--surface-alt)}
 
+/* The hero's action cards hang half their height below the hero. Whatever
+   section follows must start below them, so it absorbs the overhang as extra
+   top padding. Keep this figure in step with --overhang in Hero.astro. */
+.hero + .section{padding-top:calc(var(--sp-7) + var(--hero-card-h) / 2)}
+
 /* Screen-reader-only, but focusable (used by the skip link). */
 .visually-hidden{
   position:absolute;

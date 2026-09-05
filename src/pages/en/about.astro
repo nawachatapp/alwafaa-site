@@ -10,7 +10,9 @@ import CtaBand from '../../components/CtaBand.astro';
 const crest = [
   { title: 'The mountain', body: 'A symbol of Lebanon and of steadfastness, and a reminder that learning is a climb upward.' },
   { title: 'The book', body: 'Knowledge, open to everyone who seeks it, and the foundation of everything this school builds.' },
-  { title: 'The pen', body: 'From the verse "He who taught by the pen" - the school\'s motto since it opened.' },
+  { title: 'The pen', body: 'From the verse "He who taught by the pen" - the school\'s motto.' },
+  { title: 'The cedar', body: 'Lebanon’s own emblem, standing through every season - the strength and resilience we hope each student carries.' },
+  { title: 'The olive', body: 'Rooted deep in the land and its history, a sign of wisdom, of patience, and of steady growth.' },
 ];
 ---
 <BaseLayout
@@ -33,8 +35,8 @@ const crest = [
     <p>
       We opened with a modest number of classes and students, and the school
       grew year by year, on the strength of parents' trust more than anything
-      else. Today we welcome students from kindergarten through to the
-      Baccalaureate, and that first idea has not changed.
+      else. Today we welcome students from kindergarten through to
+      Grade 9, and that first idea has not changed.
     </p>
   </Section>
 
@@ -53,8 +55,19 @@ const crest = [
   </Section>
 
   <Section eyebrow="The crest" title="What our crest means">
-    <p>The school's crest carries three elements, each with its own meaning.</p>
-    <CardGrid min="240px">
+    <div class="crest-intro">
+      <img
+        class="crest-intro__img"
+        src="/logo.png"
+        alt="The school crest: a mountain above an open book with a pen, framed by a cedar branch and an olive branch."
+        width="200"
+        height="200"
+      />
+      <p class="crest-intro__text">The school's crest carries five elements, each with its own meaning.</p>
+    </div>
+    {/* 300px, not the 240px default: five cards at 240 fit 4-up on a wide
+        screen and orphan the fifth on its own row. 300 gives a 3+2 split. */}
+    <CardGrid min="300px">
       {crest.map((c) => (
         <Card title={c.title}><p>{c.body}</p></Card>
       ))}
@@ -68,3 +81,29 @@ const crest = [
     actionHref="/en/contact/"
   />
 </BaseLayout>
+
+<style>
+  /* The crest shown beside its own explanation, so a reader can look from
+     the words to the thing being described without scrolling back up. */
+  .crest-intro{
+    display:flex;
+    align-items:center;
+    gap:var(--sp-5);
+    margin-block:var(--sp-4) var(--sp-5);
+  }
+  .crest-intro__img{
+    inline-size:clamp(104px,15vw,150px);
+    block-size:clamp(104px,15vw,150px);
+    flex:none;
+    border-radius:50%;
+    object-fit:cover;
+    background:var(--surface);
+    border:2px solid rgba(200,162,74,.5);
+    box-shadow:0 10px 28px -14px rgba(74,9,24,.5);
+  }
+  .crest-intro__text{margin:0}
+
+  @media (max-width:560px){
+    .crest-intro{flex-direction:column;text-align:center;gap:var(--sp-3)}
+  }
+</style>

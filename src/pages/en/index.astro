@@ -12,7 +12,6 @@ const cycles = [
   { title: 'Kindergarten', meta: 'Ages 3 to 5', body: 'A warm, secure first experience of school, where children meet letters, numbers and languages through play, and build the confidence to belong.' },
   { title: 'Primary', meta: 'Grades 1 to 6', body: 'The foundations - reading, writing and arithmetic - laid carefully, with particular attention to all three languages: Arabic, English and French.' },
   { title: 'Intermediate', meta: 'Grades 7 to 9', body: 'Broader scientific and literary study, the beginnings of independent thought, and preparation for the Brevet examinations.' },
-  { title: 'Secondary', meta: 'Grades 10 to 12', body: 'Focused academic preparation for the Lebanese Baccalaureate, alongside guidance to help each student choose a university path.' },
 ];
 
 const values = [
@@ -42,7 +41,7 @@ const values = [
   </Section>
 
   <Section eyebrow="Academics" title="Our academic cycles" alt>
-    <p>We accompany each student from their first days in kindergarten through to the Baccalaureate.</p>
+    <p>We accompany each student from their first days in kindergarten through to the Brevet.</p>
     <CardGrid min="250px">
       {cycles.map((c) => (
         <Card title={c.title} meta={c.meta}><p>{c.body}</p></Card>

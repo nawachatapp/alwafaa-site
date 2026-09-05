@@ -1,7 +1,11 @@
 ---
 // An ordered process. Numbering is meaningful here - registration genuinely
 // runs in sequence, so the numbers carry information rather than decoration.
-interface Step { title: string; body: string }
+import { phones } from '../i18n/contact';
+
+// `phones: true` on a step appends the school's numbers as tappable links,
+// so a reader told to "call the office" is not sent hunting for the number.
+interface Step { title: string; body: string; phones?: boolean }
 interface Props { steps: readonly Step[] }
 const { steps } = Astro.props;
 ---
@@ -10,6 +14,18 @@ const { steps } = Astro.props;
     <li class="step">
       <h3 class="step__title">{s.title}</h3>
       <p class="step__body">{s.body}</p>
+      {s.phones && (
+        <p class="step__phones">
+          {phones.map((ph) => (
+            <a class="step__phone" href={`tel:${ph.tel}`} dir="ltr">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6.5 3h3l1.5 4-2 1.3a12 12 0 0 0 5.7 5.7l1.3-2 4 1.5v3a1.8 1.8 0 0 1-2 1.8A16.5 16.5 0 0 1 4.7 5a1.8 1.8 0 0 1 1.8-2z" />
+              </svg>
+              {ph.label}
+            </a>
+          ))}
+        </p>
+      )}
     </li>
   ))}
 </ol>
@@ -63,4 +79,32 @@ const { steps } = Astro.props;
     color:var(--burgundy);
   }
   .step__body{color:var(--ink-soft);margin:0}
+
+  /* Phone numbers on a step. Always LTR - a Lebanese number reads the same
+     way in both languages - and tappable on a phone. */
+  .step__phones{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:var(--sp-3) 0 0}
+  .step__phone{
+    display:inline-flex;
+    align-items:center;
+    gap:var(--sp-2);
+    padding:8px 16px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--surface);
+    color:var(--burgundy);
+    font-size:var(--step-0);
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+    text-decoration:none;
+    transition:background var(--dur) var(--ease),
+               border-color var(--dur) var(--ease),
+               color var(--dur) var(--ease);
+  }
+  .step__phone svg{inline-size:16px;block-size:16px;flex:none;opacity:.8}
+  .step__phone:hover,
+  .step__phone:focus-visible{
+    background:var(--burgundy);
+    border-color:var(--burgundy);
+    color:var(--ink-invert);
+  }
 </style>

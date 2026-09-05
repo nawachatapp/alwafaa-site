@@ -10,7 +10,9 @@ import CtaBand from '../../components/CtaBand.astro';
 const crest = [
   { title: 'الجبل', body: 'رمزُ لبنان وثباتِه، وإشارةٌ إلى أنّ العلمَ رفعةٌ وارتقاء.' },
   { title: 'الكتاب', body: 'المعرفةُ المفتوحةُ لكلِّ من طلبَها، وأساسُ كلِّ بناءٍ في هذه المدرسة.' },
-  { title: 'القلم', body: 'من قولِه تعالى «عَلَّمَ بالقَلَم»، وهو شعارُ المدرسةِ منذ تأسيسِها.' },
+  { title: 'القلم', body: 'من قولِه تعالى «عَلَّمَ بالقَلَم»، وهو شعارُ المدرسة.' },
+  { title: 'غصنُ الأرز', body: 'رمزُ لبنانَ الوطني، يثبتُ في كلِّ فصل: القوّةُ والصمودُ اللذانِ نرجوهما لكلِّ طالب.' },
+  { title: 'غصنُ الزيتون', body: 'ضاربٌ في أرضِ لبنانَ وتاريخِه، دلالةُ الحكمةِ والصبرِ والنماءِ المتّصل.' },
 ];
 ---
 <BaseLayout
@@ -19,7 +21,7 @@ const crest = [
 >
   <PageHeader
     eyebrow="عن المدرسة"
-    title="مدرسةُ الوفاءِ اللبناني"
+    title="مدرسة الوفاء اللبناني"
     lead="خمسٌ وعشرونَ سنةً من التعليم، وأجيالٌ تخرّجت من بينِ جدرانِنا."
   />
 
@@ -32,7 +34,7 @@ const crest = [
     <p>
       بدأنا بعددٍ متواضعٍ من الصفوفِ والطلاب، ونمَت المدرسةُ سنةً بعد سنةٍ
       بثقةِ الأهالي قبلَ أيِّ شيءٍ آخر. اليومَ نستقبلُ الطلابَ من الروضةِ حتى
-      الشهادةِ الثانوية، وما زالت الفكرةُ الأولى هي نفسَها.
+      الصفِّ التاسع، وما زالت الفكرةُ الأولى هي نفسَها.
     </p>
   </Section>
 
@@ -49,8 +51,19 @@ const crest = [
   </Section>
 
   <Section eyebrow="الشعار" title="معنى شعارِنا">
-    <p>يحملُ شعارُ المدرسةِ ثلاثةَ عناصرَ، لكلٍّ منها دلالتُه.</p>
-    <CardGrid min="240px">
+    <div class="crest-intro">
+      <img
+        class="crest-intro__img"
+        src="/logo.png"
+        alt="شعارُ المدرسة: جبلٌ فوقَ كتابٍ مفتوحٍ ومعه قلم، يحيطُ بهما غصنُ أرزٍ وغصنُ زيتون."
+        width="200"
+        height="200"
+      />
+      <p class="crest-intro__text">يحملُ شعارُ المدرسةِ خمسةَ عناصرَ، لكلٍّ منها دلالتُه.</p>
+    </div>
+    {/* 300px, not the 240px default: five cards at 240 fit 4-up on a wide
+        screen and orphan the fifth on its own row. 300 gives a 3+2 split. */}
+    <CardGrid min="300px">
       {crest.map((c) => (
         <Card title={c.title}><p>{c.body}</p></Card>
       ))}
@@ -64,3 +77,29 @@ const crest = [
     actionHref="/ar/contact/"
   />
 </BaseLayout>
+
+<style>
+  /* The crest shown beside its own explanation, so a reader can look from
+     the words to the thing being described without scrolling back up. */
+  .crest-intro{
+    display:flex;
+    align-items:center;
+    gap:var(--sp-5);
+    margin-block:var(--sp-4) var(--sp-5);
+  }
+  .crest-intro__img{
+    inline-size:clamp(104px,15vw,150px);
+    block-size:clamp(104px,15vw,150px);
+    flex:none;
+    border-radius:50%;
+    object-fit:cover;
+    background:var(--surface);
+    border:2px solid rgba(200,162,74,.5);
+    box-shadow:0 10px 28px -14px rgba(74,9,24,.5);
+  }
+  .crest-intro__text{margin:0}
+
+  @media (max-width:560px){
+    .crest-intro{flex-direction:column;text-align:center;gap:var(--sp-3)}
+  }
+</style>
