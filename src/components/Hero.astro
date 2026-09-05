@@ -9,7 +9,18 @@ const t = useTranslations(lang);
 <section class="hero on-dark">
   <div class="wrap hero__inner">
     <div class="hero__crest">
-      <img src="/logo.png" alt={t('site.name')} width="200" height="200" />
+      {/* 400px asset for a crest that peaks around 178px. */}
+      <picture>
+        <source srcset="/logo-400.webp" type="image/webp" />
+        <img
+          src="/logo-400.png"
+          alt={t('site.name')}
+          width="200"
+          height="200"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
     <p class="hero__est">{t('site.est')}</p>
     <h1 class="hero__name">{t('site.name')}</h1>
@@ -96,6 +107,7 @@ const t = useTranslations(lang);
     background:radial-gradient(circle,rgba(230,206,142,.3),transparent 68%);
     filter:blur(6px);
   }
+  .hero__crest picture{display:contents}
   .hero__crest img{
     position:relative;
     inline-size:100%;

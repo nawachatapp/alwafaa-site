@@ -176,8 +176,33 @@ li::marker{color:var(--gold-ink)}
 .on-dark .btn--ghost{background:transparent;color:var(--gold-pale);border-color:rgba(200,162,74,.5)}
 .on-dark .btn--ghost:hover{background:rgba(200,162,74,.14);color:var(--gold-pale)}
 
+/* ---------------------------------------------------------------------------
+   Page transitions
+   ClientRouter swaps documents, but without these rules the browser cuts
+   straight from one to the next. A short cross-fade reads as one continuous
+   site rather than a series of jumps; the reduced-motion block turns it off.
+   --------------------------------------------------------------------------- */
+::view-transition-old(root),
+::view-transition-new(root){
+  animation-duration:.22s;
+  animation-timing-function:var(--ease);
+}
+::view-transition-old(root){animation-name:page-out}
+::view-transition-new(root){animation-name:page-in}
+
+@keyframes page-out{from{opacity:1}to{opacity:0}}
+@keyframes page-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* First paint. Without this the page snaps in the moment CSS lands; a short
+   fade makes the initial open match the transitions between pages. */
+@keyframes first-paint{from{opacity:0}to{opacity:1}}
+body{animation:first-paint .28s var(--ease) both}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  ::view-transition-old(root),
+  ::view-transition-new(root){animation:none!important}
+  body{animation:none!important}
   *,*::before,*::after{
     animation-duration:.001ms!important;
     animation-iteration-count:1!important;

@@ -17,6 +17,37 @@
   <link rel="alternate" hreflang="x-default" href="https://www.alwafaaschool.com/ar/" />
   <meta http-equiv="refresh" content="0; url=/ar/" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <style>
+    /* This page is only ever seen for the instant before the redirect
+       fires, so it must not flash white. Paint the brand ground straight
+       away and keep the manual links out of sight; the script below only
+       reveals them if the redirect has not happened after a moment, which
+       in practice means JavaScript is off or the redirect was blocked. */
+    html{background:#8C1230}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(165deg,#A0183A,#640C21);
+      color:#F0DFB2;
+      font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+    }
+    .fallback{
+      opacity:0;
+      transition:opacity .2s ease;
+      text-align:center;
+      padding:2rem;
+      margin:0;
+      line-height:2;
+    }
+    .fallback.show{opacity:1}
+    .fallback a{color:#F0DFB2;text-underline-offset:3px}
+    .fallback a:hover{color:#fff}
+    /* Without JavaScript the reveal never runs, so show them outright. */
+    @media (scripting:none){.fallback{opacity:1}}
+  </style>
+  <noscript><style is:global>.fallback{opacity:1 !important}</style></noscript>
   <script>
     (() => {
       try {
@@ -36,8 +67,13 @@
   </script>
 </head>
 <body>
-  <p style="font-family:system-ui;padding:2rem;text-align:center">
+  <p class="fallback">
     <a href="/ar/">المتابعة إلى الموقع</a> &middot; <a href="/en/">Continue to the site</a>
   </p>
+  <script>
+    // If we are still here after a beat, the redirect did not take - only
+    // then is the manual choice worth showing.
+    setTimeout(() => document.querySelector('.fallback')?.classList.add('show'), 900);
+  </script>
 </body>
 </html>

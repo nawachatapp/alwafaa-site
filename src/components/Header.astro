@@ -15,7 +15,21 @@ const isCurrent = (path: string) => localisedPath(path, lang).replace(/\/+$/, ''
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href={localisedPath('', lang)}>
-      <img class="brand__mark" src="/logo.png" alt="" width="94" height="94" />
+      {/* 192px asset for a 94px slot, so it stays sharp on 2x screens without
+          shipping the 467 KB master. fetchpriority=high because this is the
+          first thing a reader sees. */}
+      <picture>
+        <source srcset="/logo-192.webp" type="image/webp" />
+        <img
+          class="brand__mark"
+          src="/logo-192.png"
+          alt=""
+          width="94"
+          height="94"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
       <span class="brand__text">
         <span class="brand__name">{t('site.name')}</span>
         <span class="brand__est">{t('site.est')}</span>
@@ -133,6 +147,8 @@ const isCurrent = (path: string) => localisedPath(path, lang).replace(/\/+$/, ''
     flex:none;
     min-width:0;
   }
+  /* <picture> is inline by default and would add a text baseline gap. */
+  .brand picture{display:flex;flex:none}
   .brand__mark{
     inline-size:clamp(70px,10vw,94px);
     block-size:clamp(70px,10vw,94px);
@@ -463,6 +479,11 @@ const isCurrent = (path: string) => localisedPath(path, lang).replace(/\/+$/, ''
 </style>
 
 <script>
+  // ClientRouter swaps the document without re-parsing this script, so the
+  // work has to happen on astro:page-load - which fires on the first load
+  // and again after every client-side navigation. Listeners are attached to
+  // the fresh elements each time, so nothing leaks between pages.
+  function setupHeader() {
   // Mobile menu. Kept deliberately small - no framework, no dependency.
   const burger = document.querySelector<HTMLButtonElement>('.burger');
   const nav = document.getElementById('site-nav');
@@ -514,4 +535,7 @@ const isCurrent = (path: string) => localisedPath(path, lang).replace(/\/+$/, ''
       if (!toggle.parentElement?.contains(e.relatedTarget as Node)) close();
     });
   }
+  }
+
+  document.addEventListener('astro:page-load', setupHeader);
 </script>

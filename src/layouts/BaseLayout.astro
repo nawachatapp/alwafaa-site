@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl, useTranslations, alternatePath } from '../i18n/utils';
+import { ClientRouter } from 'astro:transitions';
 import { dir } from '../i18n/ui';
 import '../styles/global.css';
 
@@ -38,6 +39,10 @@ const fullTitle = `${title} | ${t('site.name')}`;
   <link rel="alternate" hreflang={alt.lang} href={altHref.href} />
   <link rel="alternate" hreflang={lang} href={canonical.href} />
 
+  {/* The header crest is on every page and is the first thing painted;
+      preloading it stops the visible top-to-bottom fill on a cold load. */}
+  <link rel="preload" as="image" href="/logo-192.webp" type="image/webp" />
+
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
   <link rel="icon" href="/favicon.png" sizes="64x64" type="image/png" />
@@ -54,6 +59,11 @@ const fullTitle = `${title} | ${t('site.name')}`;
   <!-- Fonts are served from /fonts/ (see src/styles/fonts.css): no request
        leaves the site for a typeface, so the pages look the same with or
        without a connection to Google. -->
+
+  {/* Cross-page view transitions: the browser cross-fades between documents
+      instead of blanking to white between them. Falls back to a normal
+      navigation where the API is unsupported. */}
+  <ClientRouter />
 </head>
 
 <body class={bodyClass}>
