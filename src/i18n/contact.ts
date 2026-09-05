@@ -10,6 +10,10 @@ export const phones = [
 
 export const email = 'info@alwafaaschool.com'; // TO CONFIRM with the school
 
+// The pupils' web portal (timetable, homework). One login per pupil, given by
+// the school office. Served by nawa for this school at its own address.
+export const portalUrl = 'https://alwafaa.nawaapp.com/';
+
 // PLACEHOLDER - the school has not yet given a street address.
 export const address = {
   ar: 'لبنان',

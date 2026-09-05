@@ -1,6 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations, localisedPath, alternatePath } from '../i18n/utils';
 import { headerNav } from '../i18n/ui';
+import { portalUrl } from '../i18n/contact';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -66,12 +67,10 @@ const isCurrent = (path: string) => localisedPath(path, lang).replace(/\/+$/, ''
           aria-label (for screen readers) and by data-tip, which draws the
           visible tooltip - so nothing is lost by hiding the text. */}
       <div class="tools">
-        {/* Web portal. No URL yet - the click is swallowed by the guard in
-            BaseLayout. TO GO LIVE: set the real href, drop data-portal-pending. */}
+        {/* The pupils' web portal, at the school's own address. */}
         <a
           class="tool"
-          href="#"
-          data-portal-pending
+          href={portalUrl}
           aria-label={t('cta.portal')}
           data-tip={t('cta.portal')}
         >

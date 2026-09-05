@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations, localisedPath } from '../i18n/utils';
+import { portalUrl } from '../i18n/contact';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -29,10 +30,8 @@ const t = useTranslations(lang);
         </span>
       </a>
 
-      <!-- Web portal. The URL does not exist yet, so href="#" and the click
-           is swallowed by the guard in BaseLayout. TO GO LIVE: put the real
-           URL in href and drop data-portal-pending. -->
-      <a class="acard acard--apply" href="#" data-portal-pending>
+      <!-- The pupils' web portal, at the school's own address. -->
+      <a class="acard acard--apply" href={portalUrl}>
         <span class="acard__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3 2.5 8 12 13l9.5-5z" />
