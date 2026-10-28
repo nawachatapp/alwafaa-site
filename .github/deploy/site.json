@@ -1,0 +1,22 @@
+{
+  "mode": "astro",
+  "required_files": [
+    "index.html",
+    "en/index.html",
+    "ar/index.html",
+    "en/contact/index.html",
+    "ar/contact/index.html",
+    "admin/index.html",
+    "admin/config.yml"
+  ],
+  "health_checks": [
+    {
+      "url": "https://www.alwafaaschool.com/en/",
+      "file": "en/index.html"
+    },
+    {
+      "url": "https://www.alwafaaschool.com/ar/",
+      "file": "ar/index.html"
+    }
+  ]
+}
